@@ -7,10 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,11 +35,9 @@ import com.example.util.PostgresReaderWriter;
 import com.example.util.SqliteReader;
 import com.example.util.XML_ReaderWriter;
 
-
-
 public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderWriter {
 	Connection connection;
-	
+
 	@Override
 	public ArrayList<Match> getObjectsFromXML() {
 		ArrayList<Match> list = new ArrayList<Match>();
@@ -51,7 +51,7 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 			doc.getDocumentElement().normalize();
 			NodeList nodeList = doc.getElementsByTagName("Match");
 			for (int i = 0; i < nodeList.getLength(); i++) {
-				list.add((Match)getObject(nodeList.item(i)));
+				list.add((Match) getObject(nodeList.item(i)));
 			}
 
 		} catch (SAXException | ParserConfigurationException | IOException e1) {
@@ -61,24 +61,62 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 		return list;
 	}
 
+	public ArrayList<Match> getMatchesByLeagueId(String argID) {
+		ArrayList<Match> list = new ArrayList<Match>();
+
+		connection = PostgreSQL_util.getConnection();
+		String sql;
+		Date date;
+		PreparedStatement preparedStmt; 
+		try {
+			sql = "SELECT * FROM Match WHERE league_id = ?";
+			preparedStmt = connection.prepareStatement(sql);
+			preparedStmt.setString(1, argID);
+			ResultSet rs = preparedStmt.executeQuery();
+			while (rs.next()) {
+				Match curMatch = new Match();
+				curMatch.setId(rs.getString("id"));
+				curMatch.setCountry_id(rs.getString("country_id"));
+				curMatch.setLeague_id(rs.getString("league_id"));
+				curMatch.setSeason(rs.getString("season"));
+				curMatch.setHome_team_id(rs.getString("home_team_id"));
+				curMatch.setAway_team_id(rs.getString("away_team_id"));
+				curMatch.setHome_goal(rs.getString("home_team_goal"));
+				curMatch.setAway_goal(rs.getString("away_team_goal"));
+				curMatch.setStage(rs.getString("stage"));
+				String s = rs.getString("date");
+				System.out.println("----------------------");
+				System.out.println(s);
+				date = convertToDate(s);
+				System.out.println("----------------------");
+				curMatch.setDate(date);
+				list.add(curMatch);
+			}
+
+		} catch (ParseException | SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@Override
-	public Object getObject(Node node)  {
+	public Object getObject(Node node) {
 		Match match = new Match();
 		String s;
 		Date date;
 		if (node.getNodeType() == Node.ELEMENT_NODE) {
-			
+
 			Element element = (Element) node;
 			match.setId(getTagValue("id", element));
 			match.setCountry_id(getTagValue("country_id", element));
-			match.setLeague_id(getTagValue("league_id", element));		
+			match.setLeague_id(getTagValue("league_id", element));
 			match.setSeason(getTagValue("season", element));
 			match.setStage(getTagValue("stage", element));
 			match.setHome_team_id(getTagValue("home_team_id", element));
 			match.setAway_team_id(getTagValue("away_team_id", element));
 			match.setHome_goal(getTagValue("home_goal", element));
 			match.setAway_goal(getTagValue("away_goal", element));
-			
+
 			s = getTagValue("date", element);
 			try {
 				date = convertToDate(s);
@@ -86,7 +124,7 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 
 		return match;
@@ -131,7 +169,7 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 			doc.appendChild(rootElement);
 
 			arrMatches = getAll();
-			Date matchDate; 
+			Date matchDate;
 			for (Match curMatch : arrMatches) {
 				Element countryElem = doc.createElement("Match");
 				rootElement.appendChild(countryElem);
@@ -155,23 +193,23 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 				Element home_team_id = doc.createElement("home_team_id");
 				home_team_id.appendChild(doc.createTextNode(curMatch.getHome_team_id()));
 				countryElem.appendChild(home_team_id);
-				
+
 				Element away_team_id = doc.createElement("away_team_id");
 				away_team_id.appendChild(doc.createTextNode(curMatch.getAway_team_id()));
 				countryElem.appendChild(away_team_id);
-				
+
 				Element home_goal = doc.createElement("home_goal");
 				home_goal.appendChild(doc.createTextNode(curMatch.getHome_goal()));
 				countryElem.appendChild(home_goal);
-				
+
 				Element away_goal = doc.createElement("away_goal");
 				away_goal.appendChild(doc.createTextNode(curMatch.getAway_goal()));
 				countryElem.appendChild(away_goal);
-				
+
 				Element stage = doc.createElement("stage");
 				stage.appendChild(doc.createTextNode(curMatch.getStage()));
 				countryElem.appendChild(stage);
-				
+
 				Element date = doc.createElement("date");
 				matchDate = curMatch.getDate();
 				date.appendChild(doc.createTextNode(makeDateString(matchDate)));
@@ -200,14 +238,14 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 	private static String makeDateString(Date argDate) {
 		String s = "";
 		int year = argDate.getYear() + 1900;
-		s += year + "-" + argDate.getMonth() + "-" +argDate.getDate();	
+		s += year + "-" + argDate.getMonth() + "-" + argDate.getDate();
 		return s;
 
 	}
 
 	@Override
 	public String getTagValue(String argTag, Element element) {
-		
+
 		NodeList nodeList = element.getElementsByTagName(argTag).item(0).getChildNodes();
 		Node node = (Node) nodeList.item(0);
 		return node.getNodeValue();
@@ -246,9 +284,10 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 	}
 
 	private Date convertToDate(String receivedDate) throws ParseException {
-		// System.out.println("here");
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = formatter.parse(receivedDate);
+		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+		System.out.println(receivedDate);
+		Date date = df.parse(receivedDate);
+		System.out.println(date);
 		return date;
 	}
 
@@ -273,7 +312,7 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 
 	@Override
 	public void writeObjectsFromSQLiteToPostgreSQL() {
-		
+
 		ArrayList<Match> arrList = getObjectsFromXML();
 		try {
 			createTableIfNotExist("match");
@@ -315,9 +354,10 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 
 		Match match = (Match) argObject;
 		Connection conn = PostgreSQL_util.getConnection();
-		String sql = "INSERT INTO " + argTable + " (id, country_id, league_id, season, date, home_team_id, away_team_id, home_team_goal, away_team_goal, stage) VALUES (?,?,?,?,?,?,?,?,?,?) ";
+		String sql = "INSERT INTO " + argTable
+				+ " (id, country_id, league_id, season, date, home_team_id, away_team_id, home_team_goal, away_team_goal, stage) VALUES (?,?,?,?,?,?,?,?,?,?) ";
 		PreparedStatement st = conn.prepareStatement(sql);
-		
+
 		st.setInt(1, Integer.parseInt(match.getId()));
 		st.setString(2, match.getCountry_id());
 		st.setString(3, match.getLeague_id());
@@ -328,7 +368,7 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 		st.setString(8, match.getHome_goal());
 		st.setString(9, match.getAway_goal());
 		st.setString(10, match.getStage());
-		
+
 		st.executeUpdate();
 		st.close();
 	}
