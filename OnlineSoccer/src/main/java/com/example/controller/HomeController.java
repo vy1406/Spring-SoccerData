@@ -30,9 +30,7 @@ public class HomeController   {
 		LeagueDao leagueDao = new LeagueDao();
 		List<League> list = leagueDao.getAll();
 		servletContext.setAttribute("leagues", list);
-		
 		model.addAttribute("leagues", servletContext.getAttribute("leagues"));
-		
 		return "index";
 	}
 	@RequestMapping(value = "/index", method = RequestMethod.POST)

@@ -32,6 +32,7 @@ import org.xml.sax.SAXException;
 import com.example.db.PostgreSQL_util;
 import com.example.db.SQLite_util;
 import com.example.model.Match;
+import com.example.model.ShowMatch;
 import com.example.util.PostgresReaderWriter;
 import com.example.util.SqliteReader;
 import com.example.util.XML_ReaderWriter;
@@ -65,13 +66,16 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 		return list;
 	}
 	
-	public ArrayList<Match> getMatchesByLeagueId(String argID) {
-		ArrayList<Match> list = new ArrayList<Match>();
+	public ArrayList<ShowMatch> getMatchesByLeagueId(String argID) {
+		ArrayList<ShowMatch> list = new ArrayList();
 		seasonList = new ArrayList<String>();
 		connection = PostgreSQL_util.getConnection();
 		String season;
 		String sql;
 		Date date;
+		ShowMatch curMatch;
+		String homeTeamName;
+		String awayTeamName;
 		PreparedStatement preparedStmt; 
 		try {
 			sql = "SELECT * FROM Match WHERE league_id = ?";
@@ -79,19 +83,25 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 			preparedStmt.setString(1, argID);
 			ResultSet rs = preparedStmt.executeQuery();
 			while (rs.next()) {
-				Match curMatch = new Match();
+				curMatch = new ShowMatch();
 				curMatch.setId(rs.getString("id"));
 				curMatch.setCountry_id(rs.getString("country_id"));
 				curMatch.setLeague_id(rs.getString("league_id"));
 				curMatch.setSeason(rs.getString("season"));
-				curMatch.setHome_team_id(rs.getString("home_team_id"));
-				curMatch.setAway_team_id(rs.getString("away_team_id"));
 				curMatch.setHome_goal(rs.getString("home_team_goal"));
 				curMatch.setAway_goal(rs.getString("away_team_goal"));
 				curMatch.setStage(rs.getString("stage"));
 				String s = rs.getString("date");
 				date = convertToDate(s);
 				curMatch.setDate(date);
+				
+				// --------------------------------
+				// getting team's name
+				// --------------------------------
+				homeTeamName = getTeamNameByID(rs.getString("home_team_id"));
+				awayTeamName = getTeamNameByID(rs.getString("away_team_id"));
+				curMatch.setHome_team_id(rs.getString("home_team_id"));
+				curMatch.setAway_team_id(rs.getString("away_team_id"));
 				list.add(curMatch);
 				season = rs.getString("season");
 				if ( !seasonList.contains(season))
@@ -102,8 +112,13 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 			e.printStackTrace();
 		}
 		return list;
+	} 
+	// TODO
+	public String getTeamNameByID(String argTeamId) {
+		String s = "";
+		
+		return s;
 	}
-
 	@Override
 	public Object getObject(Node node) {
 		Match match = new Match();
@@ -299,6 +314,7 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 		ArrayList<Match> matches = this.getAll();
 		for (int i = 0; i < matches.size(); i++) {
 			Match curMatch = matches.get(i);
+			
 			System.out.println(curMatch);
 		}
 	}
