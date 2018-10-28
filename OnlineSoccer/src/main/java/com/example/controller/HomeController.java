@@ -32,6 +32,7 @@ public class HomeController   {
 		servletContext.setAttribute("leagues", list);
 		
 		model.addAttribute("leagues", servletContext.getAttribute("leagues"));
+		
 		return "index";
 	}
 	@RequestMapping(value = "/index", method = RequestMethod.POST)
@@ -48,5 +49,9 @@ public class HomeController   {
 	@RequestMapping("/index3")
 	public String index5(Model model) {
 		return "index3";
+	}
+	@RequestMapping("/index54")
+	public String index54(Model model) {
+		return "index5";
 	}
 }

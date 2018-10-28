@@ -2,6 +2,7 @@ package com.example.controller;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +21,17 @@ public class MatchController {
 	
 	@RequestMapping(value = "/show")
 	public String show(@RequestParam String id, Model model) {
-		System.out.println(id);
-		
+		System.out.println(id);	
 		ArrayList<Match> matchesByLeague = matchDao.getMatchesByLeagueId(id);
 		model.addAttribute("matches", matchesByLeague);
-		System.out.println(matchesByLeague);
-		return "index4";
+		//System.out.println(matchesByLeague);
+		
+		ArrayList<String> seasons = (ArrayList<String>) matchDao.seasonList;	
+//				new ArrayList<String>(
+//			    Arrays.asList("2009", "2010", "2011", "2012"));
+
+		
+		model.addAttribute("seasons", seasons);
+		return "showTable";
 	}
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body roleId="page-top" data-spy="scroll"
+	data-target=".navbar-fixed-top">
+	<!--<head th:replace="common/header :: navbar" />-->
+<body>
+<head th:replace="common/header :: navbar" />
+<div class="container">
+	<div class="row ">
+		<div class="main-center ">
+			<form th:action="@{/match/show}" role="button" method="post">
+				<div class="form-group blu-margin">
+					<select class="form-control" th:value="@{league}" name="league_id"
+						id="league_id">
+						<option th:each="league : ${leagues}" th:value="${league.id}"
+							th:text="${league.name}"></option>
+					</select>
+				</div>
+			</form>
+			<div class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+					role="button" aria-haspopup="true" aria-expanded="false">Leagues
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu" th:value="@{league}" name="league_id"
+					id="league_id">
+					<select><a th:href="@{/match/show}"
+						th:each="league : ${leagues}" th:value="${league.id}"
+						th:name="laegue_id" th:text="${league.name}">Primary</a></select>
+
+				</ul>
+			</div>
+			<form class="form-signin" th:action="@{/index}" method="post">
+				<h2 class="form-signin-heading">index 1</h2>
+				<!-- 				<div class="form-group"> -->
+				<!-- 					<label for="username" class="sr-only">Username</label> <input -->
+				<!-- 						type="text" roleId="username" class="form-control" -->
+				<!-- 						placeholder="Username" name="username" id="username" -->
+				<!-- 						required="required" autofocus="autofocus" /> -->
+				<!-- 				</div> -->
+				<!-- 				<div class="form-group"> -->
+				<!-- 					<label for="password" class="sr-only">Password</label> <input -->
+				<!-- 						type="password" roleId="inputPassword" class="form-control" -->
+				<!-- 						placeholder="Password" id="password" name="password" -->
+				<!-- 						required="required" /> -->
+				<!-- 				</div> -->
+				<div class="form-group">
+					<input type="checkbox" name="remember-me" id="remember-me" />
+					&nbsp; Remember me
+				</div>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+					in</button>
+			</form>
+			<hr />
+			<div class="form-group ">
+				<a type="submit" class="btn btn-info btn-lg btn-block login-button"
+					th:href="@{/signup}">Sign up!</a>
+			</div>
+		</div>
+		<div class="table-responsive">
+			<table id="example"
+				class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>country id</th>
+						<th>name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="league : ${leagues}">
+						<td data-th-text="${league.id}">...</td>
+						<td data-th-text="${league.country_id}">...</td>
+						<td data-th-text="${league.name}">...</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div th:replace="common/header :: body-bottom-scripts" />
+<script>
+	$(document).ready(function() {
+		$('#example').DataTable();
+	});
+</script>
+</body>
+</html>

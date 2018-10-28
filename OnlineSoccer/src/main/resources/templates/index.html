@@ -5,83 +5,51 @@
 	data-target=".navbar-fixed-top">
 	<!--<head th:replace="common/header :: navbar" />-->
 <body>
-	<!-- Login Section -->
+<head th:replace="common/header :: header" />
 <head th:replace="common/header :: navbar" />
-<div class="container">
-	<div class="row ">
-		<div class="main-center ">
-			<form th:action="@{/match/show}" role="button" method="post">
-				<div class="form-group blu-margin">
-					<select class="form-control" th:value="@{league}" name="league_id" id="league_id" >
-						<option th:each="league : ${leagues}" th:value="${league.id}"
-							th:text="${league.name}"></option>
-					</select>
-				</div>
-			</form>
-			<div class="dropdown"><a href="#" class="dropdown-toggle"
-				data-toggle="dropdown" role="button" aria-haspopup="true"
-				aria-expanded="false">Leagues <span class="caret"></span></a>
-				<ul class="dropdown-menu" th:value="@{league}" name="league_id"
-						id="league_id">
-					<select><a th:href="@{/match/show}"  th:each="league : ${leagues}" th:value="${league.id}" th:name="laegue_id"
-							th:text="${league.name}">Primary</a></select>
-					
-				</ul>
+<div class="row">
+	<div class="leftcolumn">
+
+		<div th:replace="common/header :: card1"></div>
+		<div th:replace="common/header :: card2"></div>
+
+	</div>
+
+	<div class="rightcolumn" align="right">
+		<div class="card">
+			<h2>About Me</h2>
+			<div class="fakeimg" style="height: 100px;">Image</div>
+			<p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+		</div>
+		<div class="card">
+			<h3>Popular Post</h3>
+			<div class="fakeimg">
+				<p>Image</p>
 			</div>
-			<form class="form-signin" th:action="@{/index}" method="post">
-				<h2 class="form-signin-heading">index 1</h2>
-				<!-- 				<div class="form-group"> -->
-				<!-- 					<label for="username" class="sr-only">Username</label> <input -->
-				<!-- 						type="text" roleId="username" class="form-control" -->
-				<!-- 						placeholder="Username" name="username" id="username" -->
-				<!-- 						required="required" autofocus="autofocus" /> -->
-				<!-- 				</div> -->
-				<!-- 				<div class="form-group"> -->
-				<!-- 					<label for="password" class="sr-only">Password</label> <input -->
-				<!-- 						type="password" roleId="inputPassword" class="form-control" -->
-				<!-- 						placeholder="Password" id="password" name="password" -->
-				<!-- 						required="required" /> -->
-				<!-- 				</div> -->
-				<div class="form-group">
-					<input type="checkbox" name="remember-me" id="remember-me" />
-					&nbsp; Remember me
-				</div>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-					in</button>
-			</form>
-			<hr />
-			<div class="form-group ">
-				<a type="submit" class="btn btn-info btn-lg btn-block login-button"
-					th:href="@{/signup}">Sign up!</a>
+			<div class="fakeimg">
+				<p>Image</p>
+			</div>
+			<div class="fakeimg">
+				<p>Image</p>
 			</div>
 		</div>
-		<div class="table-responsive">
-			<table id="example"
-				class="table table-bordered table-hover table-striped">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>country id</th>
-						<th>name</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr data-th-each="league : ${leagues}">
-						<td data-th-text="${league.id}">...</td>
-						<td data-th-text="${league.country_id}">...</td>
-						<td data-th-text="${league.name}">...</td>
-					</tr>
-				</tbody>
-			</table>
+		<div class="card">
+			<h3>Follow Me</h3>
+			<p>Some text..</p>
 		</div>
 	</div>
 </div>
 
-<div th:replace="common/header :: body-bottom-scripts" />
+<div class="footer">
+	<h2>Footer</h2>
+</div>
+<div th:replace="common/header :: body-bottom-scripts" /></div>
+
 <script>
 	$(document).ready(function() {
 		$('#example').DataTable();
 	});
 </script>
 </body>
+
 </html>

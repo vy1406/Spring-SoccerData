@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -38,6 +39,9 @@ import com.example.util.XML_ReaderWriter;
 public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderWriter {
 	Connection connection;
 
+	// while looping thru matches - remembering the seasons.
+	public List<String> seasonList;
+	
 	@Override
 	public ArrayList<Match> getObjectsFromXML() {
 		ArrayList<Match> list = new ArrayList<Match>();
@@ -60,11 +64,12 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 
 		return list;
 	}
-
+	
 	public ArrayList<Match> getMatchesByLeagueId(String argID) {
 		ArrayList<Match> list = new ArrayList<Match>();
-
+		seasonList = new ArrayList<String>();
 		connection = PostgreSQL_util.getConnection();
+		String season;
 		String sql;
 		Date date;
 		PreparedStatement preparedStmt; 
@@ -85,12 +90,12 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 				curMatch.setAway_goal(rs.getString("away_team_goal"));
 				curMatch.setStage(rs.getString("stage"));
 				String s = rs.getString("date");
-				System.out.println("----------------------");
-				System.out.println(s);
 				date = convertToDate(s);
-				System.out.println("----------------------");
 				curMatch.setDate(date);
 				list.add(curMatch);
+				season = rs.getString("season");
+				if ( !seasonList.contains(season))
+					seasonList.add(season);
 			}
 
 		} catch (ParseException | SQLException e) {
@@ -285,9 +290,7 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 
 	private Date convertToDate(String receivedDate) throws ParseException {
 		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
-		System.out.println(receivedDate);
-		Date date = df.parse(receivedDate);
-		System.out.println(date);
+		Date date = df.parse(receivedDate);		
 		return date;
 	}
 
