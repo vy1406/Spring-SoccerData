@@ -13,7 +13,10 @@ body {
     text-align: center;
     background: white;
 }
-
+.caption { 
+    display: table-caption;
+    text-align: center;
+}
 .header h1 {
     font-size: 50px;
 }
@@ -23,7 +26,10 @@ body {
     overflow: hidden;
     background-color: #333;
 }
-
+.tableCaption{
+	text-aling: right;
+	color: pink;
+}
 /* Style the topnav links */
 .topnav a {
     float: left;

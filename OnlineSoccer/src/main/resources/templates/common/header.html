@@ -29,7 +29,7 @@
 <link href="/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 
 <!-- Custom CSS -->
-<!--<link href="css/scrolling-nav.css" rel="stylesheet" />-->
+<link href="css/scrolling-nav.css" rel="stylesheet" />
 <link href="/css/main2.css" rel="stylesheet" />
 </head>
 <body>
@@ -48,7 +48,7 @@
 								th:name="league_id" id="league_id">
 								<li>
 									<!-- 								th:href="@{'/bestDictators?search='+${search}+'&amp;firstPosition='+${dictators.get(0).getUser().getId()}}" -->
-									<a th:href="@{'/match/show?league_id=' +${league.id}}"
+									<a th:href="@{'/match/show?league_id=' +${league.id} + '&season=-1' }"
 									th:each="league : ${leagues}" th:value="${league.id}"
 									th:text="${league.name}"> </a>
 								</li>
@@ -60,8 +60,7 @@
 							aria-expanded="false" th:if="${seasons}" >Seasons <span class="caret"></span></a>
 							<ul class="dropdown-menu" th:value="@{season}"
 								th:name="season" id="season">
-								<li>
-									
+								<li>									
 									<a th:href="@{'/match/show?season=' +${season}}"
 									th:each="season : ${seasons}" th:value="${season}"
 									th:text="${season}"> </a>
