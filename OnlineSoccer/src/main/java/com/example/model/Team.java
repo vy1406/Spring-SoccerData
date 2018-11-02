@@ -3,8 +3,17 @@ package com.example.model;
 public class Team {
 
 	private String id;
+	private int team_api_id;
 	private String name;
 	private String short_name;
+	
+	public int getTeam_api_id() {
+		return team_api_id;
+	}
+	public void setTeam_api_id(int team_api_id) {
+		this.team_api_id = team_api_id;
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -25,7 +34,8 @@ public class Team {
 	}
 	@Override
 	public String toString() {
-		return "Team [id=" + id + ", name=" + name + ", short_name=" + short_name + "]";
+		return "Team [id=" + id + ", team_api_id=" + team_api_id + ", name=" + name + ", short_name=" + short_name
+				+ "]";
 	}
 
 	

@@ -48,7 +48,7 @@
 								th:name="league_id" id="league_id">
 								<li>
 									<!-- 								th:href="@{'/bestDictators?search='+${search}+'&amp;firstPosition='+${dictators.get(0).getUser().getId()}}" -->
-									<a th:href="@{'/match/show?id=' +${league.id}}"
+									<a th:href="@{'/match/show?league_id=' +${league.id}}"
 									th:each="league : ${leagues}" th:value="${league.id}"
 									th:text="${league.name}"> </a>
 								</li>

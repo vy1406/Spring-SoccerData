@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.dao.MatchDao;
-import com.example.model.ShowMatch;
+import com.example.model.Game;
 
 
 @Controller
@@ -19,13 +19,14 @@ public class MatchController {
 	private MatchDao matchDao = new MatchDao();
 	
 	@RequestMapping(value = "/show")
-	public String show(@RequestParam String id, Model model) {
-		System.out.println(id);	
-		ArrayList<ShowMatch> matchesByLeague = matchDao.getMatchesByLeagueId(id);
-		model.addAttribute("matches", matchesByLeague);
-		//System.out.println(matchesByLeague);
+	public String show(@RequestParam String league_id, Model model) {
+		System.out.println(league_id);	
+		ArrayList<Game> games = matchDao.getGamesByLeagueId(league_id);
+		model.addAttribute("games", games);
 		
-		ArrayList<String> seasons = (ArrayList<String>) matchDao.seasonList;	
+		//TODO 
+		// put season in a set
+		ArrayList<String> seasons = matchDao.getSeasonList();	
 		
 		model.addAttribute("seasons", seasons);
 		return "showTable";
