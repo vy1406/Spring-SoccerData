@@ -71,12 +71,41 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 		}
 		return games;
 	}
+	
+	// RETURN RANDOM GAME - BY QUERY
+	public Game getRandomGame(String team_api_id) { 
+		connection = PostgreSQL_util.getConnection();
+		
+		
+		String sql = "SELECT  m.id, m.match_api_id, m.country_id, m.league_id, m.season, m.date, \r\n" + 
+				"m.home_team_api_id,  m.away_team_api_id, m.home_team_goal,\r\n" + 
+				"m.away_team_goal, m.stage, \r\n" + 
+				"	t1.name as home_team_long_name, t1.short_name as home_team_short_name,\r\n" + 
+				"	t2.name as away_team_long_name, t2.short_name as away_team_short_name FROM match AS m\r\n" + 
+				"	JOIN team AS t1 ON m.home_team_api_id = t1.team_api_id\r\n" + 
+				"	JOIN team AS t2 ON m.away_team_api_id = t2.team_api_id where m.away_team_api_id='8455' or m.home_team_api_id ='"+ team_api_id + "' ORDER BY RANDOM()\r\n" + 
+				"LIMIT 1";
+		
+		Game randomGame = new Game();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				randomGame = buildGameFromResultSet(rs);								
+			}
+
+		} catch (ParseException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return randomGame;
+	}
+	
 	public ArrayList<Game> getGamesByLeagueId(String argLeague_id) {
 		connection = PostgreSQL_util.getConnection();
 		ArrayList<Game> games = new ArrayList<>();
 
-		int tempInt;
-		String tempString;
 		String sql = "SELECT  m.id, m.match_api_id, m.country_id, m.league_id, m.season, m.date, \r\n"
 				+ "	m.home_team_api_id,  m.away_team_api_id, m.home_team_goal, \r\n"
 				+ "	m.away_team_goal, m.stage,\r\n"
@@ -85,39 +114,11 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 				+ "    JOIN team AS t1 ON m.home_team_api_id = t1.team_api_id\r\n"
 				+ "	JOIN team AS t2 ON m.away_team_api_id = t2.team_api_id\r\n" + "	where m.league_id = '"
 				+ argLeague_id + "'";
-		Date date;
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
-			// ResultSet rs = statement.executeQuery("select * "
-			// + "from match as m "
-			// + " join team as t1 on m.home_team_api_id = t1.team_api_id "
-			// + " join team as t2 on m.away_team_api_id = t2.team_api_id "
-			// + " ");
 			while (rs.next()) {
-				Game curGame = new Game();
-				curGame.setId(rs.getInt("id"));
-				tempInt = Integer.parseInt(rs.getString("match_api_id"));
-				curGame.setMatch_api_id(tempInt);
-				curGame.setCountry_id(rs.getString("country_id"));
-				curGame.setLeague_id(rs.getString("league_id"));
-				curGame.setSeason(rs.getString("season"));
-				this.seasons.add(rs.getString("season"));
-				tempInt = Integer.parseInt(rs.getString("home_team_api_id"));
-				curGame.setHome_team_api_id(tempInt);
-				tempInt = Integer.parseInt(rs.getString("away_team_api_id"));
-				curGame.setAway_team_api_id(tempInt);
-				curGame.setHome_goal(rs.getString("home_team_goal"));
-				curGame.setAway_goal(rs.getString("away_team_goal"));
-				curGame.setStage(rs.getString("stage"));
-				String s = rs.getString("date");
-				date = convertToDate(s);
-				curGame.setDate(date);
-
-				curGame.setHome_team_name(rs.getString("home_team_long_name"));
-				curGame.setAway_team_name(rs.getString("away_team_long_name"));
-				curGame.setHome_team_short_name(rs.getString("home_team_short_name"));
-				curGame.setAway_team_short_name(rs.getString("away_team_short_name"));
+				Game curGame = buildGameFromResultSet(rs);				
 				games.add(curGame);
 			}
 
@@ -127,7 +128,39 @@ public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderW
 
 		return games;
 	}
+	// -----------------------------
+	// Helping function for readability
+	// -----------------------------
+	private  Game buildGameFromResultSet(ResultSet rs) throws SQLException, ParseException {
+		Game curGame = new Game();
+		int tempInt;
+		Date date;
+		
+		curGame.setId(rs.getInt("id"));
+		tempInt = Integer.parseInt(rs.getString("match_api_id"));
+		curGame.setMatch_api_id(tempInt);
+		curGame.setCountry_id(rs.getString("country_id"));
+		curGame.setLeague_id(rs.getString("league_id"));
+		curGame.setSeason(rs.getString("season"));
+		this.seasons.add(rs.getString("season"));
+		tempInt = Integer.parseInt(rs.getString("home_team_api_id"));
+		curGame.setHome_team_api_id(tempInt);
+		tempInt = Integer.parseInt(rs.getString("away_team_api_id"));
+		curGame.setAway_team_api_id(tempInt);
+		curGame.setHome_goal(rs.getString("home_team_goal"));
+		curGame.setAway_goal(rs.getString("away_team_goal"));
+		curGame.setStage(rs.getString("stage"));
+		String s = rs.getString("date");
+		date = convertToDate(s);
+		curGame.setDate(date);
 
+		curGame.setHome_team_name(rs.getString("home_team_long_name"));
+		curGame.setAway_team_name(rs.getString("away_team_long_name"));
+		curGame.setHome_team_short_name(rs.getString("home_team_short_name"));
+		curGame.setAway_team_short_name(rs.getString("away_team_short_name"));		
+		return curGame;
+	}
+	
 	@Override
 	public ArrayList<Match> getObjectsFromXML() {
 		ArrayList<Match> list = new ArrayList<Match>();

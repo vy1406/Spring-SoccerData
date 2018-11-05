@@ -128,6 +128,8 @@ public class Game {
 	}
 	
 	
-	
+	public String showGameForCard() {
+		return  away_team_name + " ["  + away_goal + "]:[" + home_goal + "] " + home_team_name;
+	}
 	
 }

@@ -11,13 +11,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.dao.LeagueDao;
+import com.example.dao.MatchDao;
+import com.example.model.Game;
 import com.example.model.League;
+import com.example.serviceImpl.NewsServiceImpl;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Controller
 public class HomeController   {
 	
 	@Autowired
 	private ServletContext servletContext;
+	
+	
+	private NewsServiceImpl newsService = new NewsServiceImpl();
+	
+	MatchDao matchDao = new MatchDao();
+	LeagueDao leagueDao = new LeagueDao();
+	
 	
 	@RequestMapping("/")
 	public String home() {
@@ -27,10 +40,23 @@ public class HomeController   {
 	
 	@RequestMapping("/index")
 	public String index(Model model) {
-		LeagueDao leagueDao = new LeagueDao();
+	
+		HttpResponse<JsonNode> response;
 		List<League> list = leagueDao.getAll();
 		servletContext.setAttribute("leagues", list);
 		model.addAttribute("leagues", servletContext.getAttribute("leagues"));
+		
+		Game randomGame = matchDao.getRandomGame("8455"); // 8455 - chelsea's api id
+		model.addAttribute("randomGame", randomGame);
+		
+		try {
+			response = newsService.getNewsByTopic();
+			System.out.println(response.getBody());
+		} catch (UnirestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return "index";
 	}
 	@RequestMapping(value = "/index", method = RequestMethod.POST)
@@ -39,17 +65,5 @@ public class HomeController   {
 		
 		return "index";
 	}
-	@RequestMapping("/index2")
-	public String index2(Model model) {
-		return "index2";
-	}
 	
-	@RequestMapping("/index3")
-	public String index5(Model model) {
-		return "index3";
-	}
-	@RequestMapping("/index54")
-	public String index54(Model model) {
-		return "index5";
-	}
 }

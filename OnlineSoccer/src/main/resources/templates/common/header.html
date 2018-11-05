@@ -61,7 +61,7 @@
 							<ul class="dropdown-menu" th:value="@{season}"
 								th:name="season" id="season">
 								<li>									
-									<a th:href="@{'/match/show?season=' +${season}}"
+									<a th:href="@{'/match/show?league_id=' + ${currentLeague_id} + '&season=' +${season}}"
 									th:each="season : ${seasons}" th:value="${season}"
 									th:text="${season}"> </a>
 								</li>
