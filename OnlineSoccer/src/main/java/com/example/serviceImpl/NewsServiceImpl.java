@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.model.News;
+import com.example.model.NewsImage;
 import com.example.service.NewsService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -29,7 +30,7 @@ public class NewsServiceImpl implements NewsService {
 			return parseToNews(response.getBody().getObject());
 			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return null;
@@ -57,18 +58,40 @@ public class NewsServiceImpl implements NewsService {
 	// ----------------------------
 	private News createNewsFromJSONObject(JSONObject argJSONObject) throws JSONException {
 		News news = new News();
+		NewsImage curImage;
 		String description = argJSONObject.getString("description");
 		String title = argJSONObject.getString("title");
 		String url = argJSONObject.getString("url");
 		String datePublished = argJSONObject.getString("datePublished");
 		
+		curImage = createNewsImageFromJsonObject(argJSONObject.getJSONObject("image"));
+		
+		news.setNewsImage(curImage);
 		news.setUrl(url);
 		news.setDatePublished(datePublished);
 		news.setTitle(title);
 		news.setDescription(description);
 		return news;
 	}
-	
+	private NewsImage createNewsImageFromJsonObject(JSONObject argJSONObject) throws JSONException {
+		NewsImage newsImage = new NewsImage();
+		
+		int height = argJSONObject.getInt("height");
+		int width = argJSONObject.getInt("width");
+		String url = argJSONObject.getString("url");
+		String thumbnail = argJSONObject.getString("thumbnail");
+		int thumbnailWidth = argJSONObject.getInt("thumbnailWidth");
+		int thumbnailHeight = argJSONObject.getInt("thumbnailHeight");
+				
+		newsImage.setUrl(url);
+		newsImage.setHeight(height);
+		newsImage.setWidth(width);
+		newsImage.setThumbnail(thumbnail);
+		newsImage.setThumbnailHeight(thumbnailHeight);
+		newsImage.setThumbnailWidth(thumbnailWidth);
+		
+		return newsImage;
+	}
 	@Override
 	public String getRandomNews() {
 		// TODO Auto-generated method stub

@@ -51,11 +51,9 @@ public class HomeController   {
 		
 		try {
 			news = newsService.getNewsByTopic("Chelsea");
-			for ( News c : news) {
-				System.out.println(c);
-			}
+			model.addAttribute("news", news);
 		} catch (UnirestException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		

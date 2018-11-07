@@ -8,11 +8,20 @@ public class News {
 	private String datePublished;
 	private String description;
 	private String url;
+	private NewsImage newsImage;
 	
+	
+	
+	public NewsImage getNewsImage() {
+		return newsImage;
+	}
+	public void setNewsImage(NewsImage newsImage) {
+		this.newsImage = newsImage;
+	}
 	@Override
 	public String toString() {
 		return "News [title=" + title + ", datePublished=" + datePublished + ", description=" + description + ", url="
-				+ url + "]";
+				+ url + ", newsImage=" + newsImage + "]";
 	}
 	public String getTitle() {
 		return title;

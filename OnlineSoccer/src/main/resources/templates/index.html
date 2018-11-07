@@ -7,18 +7,26 @@
 <body>
 <head th:replace="common/header :: header" />
 <head th:replace="common/header :: navbar" />
+
 <div class="row">
 	<div class="leftcolumn">
+		<div class="card" th:each="currentNews : ${news}">
+			<h2 th:text="${currentNews.title}"></h2>
+			<h5 th:text="${currentNews.datePublished}"></h5>
 
-		<div th:replace="common/header :: card1"></div>
-		<div th:replace="common/header :: card2"></div>
+			<img th:src="${currentNews.newsImage.thumbnail}">
 
+			<p th:text="${currentNews.description}"></p>
+			<p>FOR FULL STORY VISIT :</p>
+			<a th:href="${currentNews.url}" th:text="Here"></a>
+		</div>
 	</div>
 
 	<div class="rightcolumn" align="right">
 		<div class="card">
 			<h2 style="text-align: left;">Random Match</h2>
-			<div class="fakeimg" style="height: 100px; text-align: left;" th:text="${randomGame.showGameForCard()}" ></div>
+			<div class="fakeimg" style="height: 100px; text-align: left;"
+				th:text="${randomGame.showGameForCard()}"></div>
 		</div>
 		<div class="card">
 			<h3>Popular Post</h3>
