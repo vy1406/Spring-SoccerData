@@ -10,5 +10,5 @@ match picture ? - https://www.w3schools.com/howto/howto_css_cutout_text.asp
 use random - to show random match. 
 
 news:
-	- subscribe api
+	- subscribe api or X-Mashape-Key ???
 	- iterate jsonNode

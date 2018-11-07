@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -14,9 +15,8 @@ import com.example.dao.LeagueDao;
 import com.example.dao.MatchDao;
 import com.example.model.Game;
 import com.example.model.League;
+import com.example.model.News;
 import com.example.serviceImpl.NewsServiceImpl;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Controller
@@ -41,7 +41,7 @@ public class HomeController   {
 	@RequestMapping("/index")
 	public String index(Model model) {
 	
-		HttpResponse<JsonNode> response;
+		ArrayList<News> news;
 		List<League> list = leagueDao.getAll();
 		servletContext.setAttribute("leagues", list);
 		model.addAttribute("leagues", servletContext.getAttribute("leagues"));
@@ -50,8 +50,10 @@ public class HomeController   {
 		model.addAttribute("randomGame", randomGame);
 		
 		try {
-			response = newsService.getNewsByTopic();
-			System.out.println(response.getBody());
+			news = newsService.getNewsByTopic("Chelsea");
+			for ( News c : news) {
+				System.out.println(c);
+			}
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
