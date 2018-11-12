@@ -2,7 +2,11 @@ package com.example.model;
 
 import java.util.Date;
 
-//Model to show with names of the teams at the showTable.html
+// TODO delete ? 
+//----------------------------
+// Model to show with names of the teams at the showTable.html
+// ----------------------------
+
 public class ShowMatch {
 	private String id;
 	private String country_id;

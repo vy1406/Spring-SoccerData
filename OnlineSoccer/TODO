@@ -9,6 +9,8 @@ tooltip / popup
 match picture ? - https://www.w3schools.com/howto/howto_css_cutout_text.asp
 use random - to show random match. 
 
-news:
-	- subscribe api or X-Mashape-Key ???
-	- iterate jsonNode
+TODO: 
+	- do i use ShowMatch or Match models ? 
+	- fix get params. i can use input, method = "get". example can be found in helloShop.html
+	- use @InitBinder - pre process request before coming to controller ( Advanced ). Spring course - Session 15, Lec 152
+		- using StringTrimEditor ( lec 153  )

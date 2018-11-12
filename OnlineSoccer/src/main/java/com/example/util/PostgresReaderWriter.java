@@ -8,8 +8,6 @@ import java.sql.SQLException;
 
 import com.example.db.PostgreSQL_util;
 
-
-
 public interface PostgresReaderWriter {
 
 	default String dropTable(String argTableName) {

@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//----------------------------
+// using JDBC to connect to postgres and get the data.
+// ----------------------------
+
 public class PostgreSQL_util {
 
 	static Connection con = null;
@@ -26,10 +30,10 @@ public class PostgreSQL_util {
 			return con;
 		}
 	}
-	
+
 	public static void closeConnection() throws SQLException {
 		System.out.println("Postgres tabase connection closed");
 		con.close();
-		
+
 	}
 }
