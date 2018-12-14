@@ -1,15 +1,26 @@
 package com.example.controller;
 
+
+
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.entity.Book;
+import com.example.service.BookService;
+
 @Controller
 public class ShopController {
 
+	@Autowired
+	private BookService bookService;
+	
 	@RequestMapping("/helloShop")
 	public String showShop() {
 		return "helloShop";
@@ -52,4 +63,14 @@ public class ShopController {
 		return "showShop";
 	}
 
+	
+	@RequestMapping("/list")
+	public String bookList(Model model) {
+		System.out.println("------------------------------------------------");
+		List<Book> books = bookService.getBooks();
+		System.out.println(books);
+		model.addAttribute("books", books);
+		System.out.println("------------------------------------------------");
+		return "helloShop";
+	}
 }

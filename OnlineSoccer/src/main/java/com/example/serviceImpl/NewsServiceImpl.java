@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import com.example.model.News;
 import com.example.model.NewsImage;
@@ -18,6 +19,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 // Service that runs through api and creating an object called "News". which we will pass thru model to view.
 // 
 //------------------------------
+@Service
 public class NewsServiceImpl implements NewsService {
 
 	// ------------------------------

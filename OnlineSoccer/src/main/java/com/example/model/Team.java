@@ -13,7 +13,6 @@ public class Team {
 	public void setTeam_api_id(int team_api_id) {
 		this.team_api_id = team_api_id;
 	}
-	
 	public String getId() {
 		return id;
 	}

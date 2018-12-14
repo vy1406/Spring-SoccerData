@@ -23,15 +23,17 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 @Controller
 public class HomeController   {
 	
-	
 	@Autowired
 	private ServletContext servletContext;
+		
+	@Autowired
+	private NewsServiceImpl newsServiceImpl;
 	
+	@Autowired
+	MatchDao matchDao;
 	
-	private NewsServiceImpl newsService = new NewsServiceImpl();
-	
-	MatchDao matchDao = new MatchDao();
-	LeagueDao leagueDao = new LeagueDao();
+	@Autowired
+	LeagueDao leagueDao;
 	
 	// -----------------------------
 	// redirect index
@@ -58,7 +60,7 @@ public class HomeController   {
 		model.addAttribute("randomGame", randomGame);
 		
 		try {
-			news = newsService.getNewsByTopic("Chelsea");
+			news = newsServiceImpl.getNewsByTopic("Chelsea");
 			model.addAttribute("news", news);
 		} catch (UnirestException e) {
 			

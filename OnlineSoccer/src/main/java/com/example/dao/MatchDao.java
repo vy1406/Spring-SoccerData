@@ -25,6 +25,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -39,6 +40,7 @@ import com.example.util.PostgresReaderWriter;
 import com.example.util.SqliteReader;
 import com.example.util.XML_ReaderWriter;
 
+@Component
 public class MatchDao implements PostgresReaderWriter, SqliteReader, XML_ReaderWriter {
 	Connection connection;
 

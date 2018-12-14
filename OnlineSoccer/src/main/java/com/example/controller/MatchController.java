@@ -19,12 +19,19 @@ import com.example.model.League;
 @RequestMapping("/match")
 public class MatchController {
 
-	// using JDBC - not spring autowire
-	private MatchDao matchDao = new MatchDao();
-	private LeagueDao leagueDao = new LeagueDao();
+//	// using JDBC - not spring autowire
+//	private MatchDao matchDao = new MatchDao();
+//	private LeagueDao leagueDao = new LeagueDao();
+//	
 	
 	@Autowired
 	private ServletContext servletContext;
+	
+	@Autowired
+	private MatchDao matchDao;
+	
+	@Autowired
+	private LeagueDao leagueDao;
 	
 	// ------------------------------
 	// showing games = chosen league + all seasons. and showing the last season if its first time.

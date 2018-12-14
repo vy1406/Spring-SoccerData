@@ -9,9 +9,7 @@ public class News {
 	private String description;
 	private String url;
 	private NewsImage newsImage;
-	
-	
-	
+		
 	public NewsImage getNewsImage() {
 		return newsImage;
 	}

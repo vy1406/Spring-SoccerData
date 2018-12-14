@@ -10,7 +10,24 @@ match picture ? - https://www.w3schools.com/howto/howto_css_cutout_text.asp
 use random - to show random match. 
 
 TODO: 
+	- NEWS:
+		- use jackson mapper to convert json to pojo. ( sector 57 , lecture 448 ) 
+		  means 'createNewsFromJSONObject()' was useless in NewsServiceImpl. 
+		- dependency - in lecture 450
+		  
+	- Shop: 
+		- add array of reviews in each book.
+		- add option to leave a review
+		- exception - itemNotFound ( 61  / 471 ) overview - createa exception handler and custom exception for item Not found
+	- Shopping cart
+		- Use new java date - chapter 5. for the time stamp.
+		- 
+		
+	- MAKE GLOBAL EXCEPTION HANDLER ( 61 / 477 )
 	- do i use ShowMatch or Match models ? 
-	- fix get params. i can use input, method = "get". example can be found in helloShop.html
+	- put entities in com.example.entitry and other leave in model.
+	- same with Dao
+	- use @postConstruct for LoadData() - at the construction of the class. sector 60 - lecture 468
+	- fix get params. i can use input, method = "get". example can be found in helloShop.html and @RequestParam in argument
 	- use @InitBinder - pre process request before coming to controller ( Advanced ). Spring course - Session 15, Lec 152
 		- using StringTrimEditor ( lec 153  )
