@@ -38,7 +38,7 @@ public class HibernateClass {
 
 	public static void queryObject() {
 		System.out.println("in queryObject");
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Book.class)
 				.buildSessionFactory();
 
 		Session session = factory.getCurrentSession();
@@ -46,11 +46,11 @@ public class HibernateClass {
 		try {
 
 			session.beginTransaction();
-			List<Student> students = session.createQuery("from Student").list();
+			List<Book> students = session.createQuery("from Book").list();
 
-			for (Student s : students)
-				System.out.println(s.toString());
-
+//			for (Student s : students)
+//				System.out.println(s.toString());
+//
 			session.getTransaction().commit();
 
 			System.out.println("FOKING A!");

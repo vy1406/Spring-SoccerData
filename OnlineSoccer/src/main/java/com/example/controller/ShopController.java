@@ -13,14 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.Book;
-import com.example.service.BookService;
-
 @Controller
 public class ShopController {
 
-	@Autowired
-	private BookService bookService;
-	
+	// if i leave autowired, it will cause problems cuz it cannot find ?? 
+
 	@RequestMapping("/helloShop")
 	public String showShop() {
 		return "helloShop";
@@ -67,9 +64,9 @@ public class ShopController {
 	@RequestMapping("/list")
 	public String bookList(Model model) {
 		System.out.println("------------------------------------------------");
-		List<Book> books = bookService.getBooks();
-		System.out.println(books);
-		model.addAttribute("books", books);
+		//List<Book> books = bookService.getBooks();
+//		System.out.println(books);
+//		model.addAttribute("books", books);
 		System.out.println("------------------------------------------------");
 		return "helloShop";
 	}
