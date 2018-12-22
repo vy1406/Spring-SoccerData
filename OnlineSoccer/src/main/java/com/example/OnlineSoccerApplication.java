@@ -12,7 +12,7 @@ public class OnlineSoccerApplication {
 	
 	public static void main(String[] args) {
 
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(JavaConfiguration.class);
+//		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(JavaConfiguration.class);
 
 //		MatchDao matchDao = context.getBean("matchDao", MatchDao.class);
 //		LeagueDao LeagueDao = context.getBean("leagueDao", LeagueDao.class);
@@ -22,9 +22,9 @@ public class OnlineSoccerApplication {
 		
 		//System.out.println(theCoach.getDailyWorkout());
 		
-		BookDaoImpl bookDao = context.getBean(BookDaoImpl.class);
-//		//List<Book> books = bookDao.getBooks();
-		bookDao.lol();
+//		BookDaoImpl bookDao = context.getBean(BookDaoImpl.class);
+//		List<Book> books = bookDao.getBooks();
+//		bookDao.lol();
 		SpringApplication.run(OnlineSoccerApplication.class, args);
 		
 	}

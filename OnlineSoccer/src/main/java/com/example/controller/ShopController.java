@@ -1,7 +1,5 @@
 package com.example.controller;
 
-
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,20 +7,54 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.Book;
+import com.example.service.ShopService;
+
 @Controller
+@RequestMapping("/shop")
 public class ShopController {
 
-	// if i leave autowired, it will cause problems cuz it cannot find ?? 
+	// if i leave autowired, it will cause problems cuz it cannot find ??
+	@Autowired
+	private ShopService shopService;
 
-	@RequestMapping("/helloShop")
-	public String showShop() {
-		return "helloShop";
+	// ------------------------------
+	// show list of all books
+	// ------------------------------
+	@RequestMapping("/books")
+	public String showShop(Model model) {
+		List<Book> books = shopService.getBooks();
+		System.out.println(books);
+		model.addAttribute("books", books);
+
+		return "showBooks";
 	}
 
+	// ------------------------------
+	// move to create form-book page to add to DB
+	// ------------------------------
+	@RequestMapping("/AddBookForm")
+	public String showAddBookForm(Model model) {
+//		Book book = new Book();
+//		
+//		model.addAttribute("book", book);
+		return "adddBookForm";
+	}
+	
+	@PostMapping("/saveBook")
+	public String saveBook(@ModelAttribute("argBook") Book argBook) {
+		
+		shopService.saveBook(argBook);
+		return "redirect:/shop/books";
+	}
+	
+	// ========================== OLD CODE ====================================================
+	
 	// ------------------------------
 	// The way to pass get params is shown in the helloShop.html
 	// ------------------------------
@@ -47,7 +79,7 @@ public class ShopController {
 	}
 
 	// --------------------------------
-	// just playing 
+	// just playing
 	// using requestParam
 	// --------------------------------
 	@RequestMapping("/processFormVersionThree")
@@ -60,13 +92,12 @@ public class ShopController {
 		return "showShop";
 	}
 
-	
 	@RequestMapping("/list")
 	public String bookList(Model model) {
 		System.out.println("------------------------------------------------");
-		//List<Book> books = bookService.getBooks();
-//		System.out.println(books);
-//		model.addAttribute("books", books);
+		// List<Book> books = bookService.getBooks();
+		// System.out.println(books);
+		// model.addAttribute("books", books);
 		System.out.println("------------------------------------------------");
 		return "helloShop";
 	}

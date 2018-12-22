@@ -9,6 +9,26 @@ tooltip / popup
 match picture ? - https://www.w3schools.com/howto/howto_css_cutout_text.asp
 use random - to show random match. 
 
+PLAN: 
+	- Shop
+		- BOOK: 
+		- show     		  ( DONE )
+		- add book button ( DONE ) 
+		- add book page   ( DONE ) 
+		- create  		  ( DONE ) // save to db	
+		- read    		  
+		- update
+		- delete 
+		- show book table
+			- create T-shirt CRUD 	  ( same as BOOK )  
+			- create custom-mug CRUD  ( same as BOOK ) 
+			- create bundle.
+			- create manage page bundle.
+			- create shopping cart.
+	- Game 
+		- create dynamic table
+		- use multi-threading
+
 TODO: 
 	- NEWS:
 		- use jackson mapper to convert json to pojo. ( sector 57 , lecture 448 ) 
@@ -21,9 +41,10 @@ TODO:
 		- exception - itemNotFound ( 61  / 471 ) overview - createa exception handler and custom exception for item Not found
 	- Shopping cart
 		- Use new java date - chapter 5. for the time stamp.
-		- 
+		-
 		
 	- MAKE GLOBAL EXCEPTION HANDLER ( 61 / 477 )
+	- couldnt solve the issue how to make SessionFactory @autowired! 
 	- do i use ShowMatch or Match models ? 
 	- put entities in com.example.entitry and other leave in model.
 	- same with Dao

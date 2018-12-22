@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body roleId="page-top" data-spy="scroll"
+	data-target=".navbar-fixed-top">
+	<!--<head th:replace="common/header :: navbar" />-->
+	<div class="container">
+		<div class="row main">
+			<div class="panel-heading">
+				<div class="panel-title text-center">
+					<h1 class="title">Add Book</h1>
+					<hr />
+				</div>
+			</div>
+			<div class="main-login main-center">
+				<form class="form-horizontal" method="post"
+					th:action="@{/shop/saveBook}">
+					<div class="form-group" style="width: 25%">
+						<label for="lastName" class="cols-sm-2 control-label">ISBN</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user"
+									aria-hidden="true"></i></span>
+							
+								<input type="text" class="form-control" id="ISBN"
+									name="ISBN" roleId="ISBN" placeholder="Enter author"
+									required="required" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group" style="width: 25%">
+						<label for="firstName" class="cols-sm-2 control-label">Book
+							Title</label>
+						<div class="cols-sm-10" width=25%>
+							<div class="input-group" width=25px>
+								<span class="input-group-addon"> <i class="fa fa-book"
+									aria-hidden="true"></i></span>
+								<!--                             DELETE  th:value="" id="book.title"
+						         if u want to make it work.
+ -->
+								<!--                             <input type="text" class="form-control" th:value="" id="book.title" name="bookTitle" roleId="bookTitle"  placeholder="Enter the book's title" required="required"/> -->
+								<input type="text" class="form-control" name="bookTitle"
+									roleId="bookTitle" placeholder="Enter the book's title"
+									required="required" />
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" style="width: 25%">
+						<label for="lastName" class="cols-sm-2 control-label">Author</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user"
+									aria-hidden="true"></i></span>
+								<!--                            <input type="text" class="form-control" th:value="${user.lastName}" id="lastName" name="lastName" roleId="lastName"  placeholder="Enter your last name" required="required"/> -->
+								<input type="text" class="form-control" id="author"
+									name="author" roleId="email" placeholder="Enter author"
+									required="required" />
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" style="width: 25%">
+						<label for="phone" class="cols-sm-2 control-label">Price</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-money"
+									aria-hidden="true"></i></span>
+								<!--                             <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone" roleId="phone"  placeholder="xxx-xxx-xxxx" required="required"/> -->
+								<input type="text" class="form-control" id="price" name="price"
+									roleId="email" placeholder="Enter price" required="required" />
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" style="width: 25%">
+						<label for="phone" class="cols-sm-2 control-label">Quantity</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="fa fa-plus-square" aria-hidden="true"></i></span>
+								<!--                             <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone" roleId="phone"  placeholder="xxx-xxx-xxxx" required="required"/> -->
+								<input type="text" class="form-control" id="quantity"
+									name="quantity" roleId="email" placeholder="Enter quantity"
+									required="required" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group " style="width: 25%">
+						<button type="submit"
+							class="btn btn-primary btn-lg btn-block login-button">Add
+							Book</button>
+					</div>
+					<hr />
+					<div class="form-group " style="width: 25%">
+						<a class="btn btn-info btn-lg btn-block login-button"
+							th:href="@{/}">Home</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+
+</body>
+</html>
