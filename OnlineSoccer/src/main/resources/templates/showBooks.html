@@ -11,7 +11,7 @@
 	<div class="container">		
 		<div class="table-responsive">
 			<input type="button" value = "Add Book "
-				onclick="window.location.href='AddBookForm'; return false;"
+				onclick="window.location.href='showFormForAdd'; return false;"
 				class="add-button"
 			/>
 			<table id="example"
@@ -24,16 +24,23 @@
 						<th>Title</th>
 						<th>Quantity</th>
 						<th>Price</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr data-th-each="book : ${books}" >
+					<tr data-th-each="book : ${books}" >					
 						<td data-th-text="${book.id}">...</td>
 						<td data-th-text="${book.ISBN}">...</td>
 						<td data-th-text="${book.bookTitle}">...</td>
 						<td data-th-text="${book.author}">...</td>
 						<td data-th-text="${book.quantity}">...</td>
 						<td data-th-text="${book.price}">...</td>
+						<td>
+						<a th:href="@{'/shop/showFormForUpdate?bookID=' +${book.id} }" th:text="Update">
+						 </a>
+						</td>
+						
+						
 					</tr>
 				</tbody>
 			</table>

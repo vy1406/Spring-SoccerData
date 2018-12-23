@@ -38,7 +38,7 @@ public class Book {
 	public Book() {
 	}
 
-	public float getId() {
+	public int getId() {
 		return id;
 	}
 

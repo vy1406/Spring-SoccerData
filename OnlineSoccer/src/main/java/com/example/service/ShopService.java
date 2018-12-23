@@ -9,4 +9,6 @@ public interface ShopService {
 	public List<Book> getBooks();
 
 	public void saveBook(Book argBook);
+
+	public Book getBook(int bookID);
 }

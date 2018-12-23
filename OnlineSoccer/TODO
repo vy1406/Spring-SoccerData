@@ -16,7 +16,7 @@ PLAN:
 		- add book button ( DONE ) 
 		- add book page   ( DONE ) 
 		- create  		  ( DONE ) // save to db	
-		- read    		  
+		- read    		  ( DONE ) 
 		- update
 		- delete 
 		- show book table
@@ -39,6 +39,10 @@ TODO:
 		- add array of reviews in each book.
 		- add option to leave a review
 		- exception - itemNotFound ( 61  / 471 ) overview - createa exception handler and custom exception for item Not found
+		- (DONE) fix book id from 1.0 to 1. on showBooks - it will show id as double, no idea why. and then in  the shopController
+		  in showFormForUpdate(..) i'm getting ISBN, and i should be getting ID ! 
+		  
+		  
 	- Shopping cart
 		- Use new java date - chapter 5. for the time stamp.
 		-

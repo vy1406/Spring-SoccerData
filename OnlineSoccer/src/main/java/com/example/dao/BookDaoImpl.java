@@ -28,7 +28,7 @@ public class BookDaoImpl implements BookDao {
 			session.beginTransaction();
 			Query<Book> theQuery = session.createQuery("from Book", Book.class);
 			List<Book> books = theQuery.getResultList();
-			session.getTransaction().commit();
+			session.getTransaction().commit();			
 			return books;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,6 +49,33 @@ public class BookDaoImpl implements BookDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public Book getBook(int bookID) {
+		Session session;
+		Book book = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			// ---------------------------
+			// NOT suppouse to be like this ! 
+			// ---------------------------
+//			Query<Book> theQuery = session.createQuery("from Book b where b.ISBN = '" + bookISBN + "'", Book.class);
+//			List<Book> books = theQuery.getResultList();
+//			book = books.get(0);
+			// ---------------------------
+			// suppouse to be like this : 
+			// ---------------------------
+			book = session.get(Book.class, bookID);
+			
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return book;
 	}
 
 	public void lol() {

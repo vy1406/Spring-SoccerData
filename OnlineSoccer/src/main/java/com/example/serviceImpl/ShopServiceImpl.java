@@ -29,4 +29,11 @@ public class ShopServiceImpl implements ShopService {
 		
 	}
 
+	@Override
+	@Transactional
+	public Book getBook(int bookID) {
+		return bookDao.getBook(bookID);
+		
+	}
+
 }
