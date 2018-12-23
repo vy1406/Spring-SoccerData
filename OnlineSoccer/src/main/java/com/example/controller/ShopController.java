@@ -52,6 +52,8 @@ public class ShopController {
 	public String saveBook(@ModelAttribute("argBook") Book argBook) {
 		
 		shopService.saveBook(argBook);
+		
+		
 		return "redirect:/shop/books";
 	}
 	

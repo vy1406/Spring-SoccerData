@@ -43,7 +43,7 @@ public class BookDaoImpl implements BookDao {
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			session.save(argBook);
+			session.saveOrUpdate(argBook); // if Id is null - save, else  - update
 			session.getTransaction().commit();
 
 		} catch (Exception e) {
@@ -59,15 +59,6 @@ public class BookDaoImpl implements BookDao {
 			session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
 			
-			// ---------------------------
-			// NOT suppouse to be like this ! 
-			// ---------------------------
-//			Query<Book> theQuery = session.createQuery("from Book b where b.ISBN = '" + bookISBN + "'", Book.class);
-//			List<Book> books = theQuery.getResultList();
-//			book = books.get(0);
-			// ---------------------------
-			// suppouse to be like this : 
-			// ---------------------------
 			book = session.get(Book.class, bookID);
 			
 			session.getTransaction().commit();

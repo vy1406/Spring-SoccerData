@@ -14,7 +14,8 @@
 			</div>
 			<div class="main-login main-center">
 				<form class="form-horizontal" method="post"
-					th:action="@{/shop/saveBook}">
+					th:action="@{/shop/saveBook}" >
+					 <input th:if="${book}"  id="bookID" th:field="${book.id}" type="hidden"/>
 					<div class="form-group" style="width: 25%">
 						<label for="lastName" class="cols-sm-2 control-label">ISBN</label>
 						<div class="cols-sm-10">

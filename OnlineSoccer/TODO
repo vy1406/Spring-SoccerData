@@ -17,7 +17,7 @@ PLAN:
 		- add book page   ( DONE ) 
 		- create  		  ( DONE ) // save to db	
 		- read    		  ( DONE ) 
-		- update
+		- update 		  ( DONE ) // using saveOrUpdate
 		- delete 
 		- show book table
 			- create T-shirt CRUD 	  ( same as BOOK )  
