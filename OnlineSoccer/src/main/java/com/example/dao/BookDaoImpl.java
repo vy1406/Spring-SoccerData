@@ -92,4 +92,23 @@ public class BookDaoImpl implements BookDao {
 		System.out.println("--------------------------------------------------------------------");
 	}
 
+	@Override
+	public void deleteBook(int bookID) {
+		Session session;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query q = session.createQuery("delete from Book where id = :bookID");
+			q.setParameter("bookID", bookID);
+			q.executeUpdate();
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	
+	}
+
 }

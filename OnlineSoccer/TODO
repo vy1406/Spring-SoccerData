@@ -18,7 +18,7 @@ PLAN:
 		- create  		  ( DONE ) // save to db	
 		- read    		  ( DONE ) 
 		- update 		  ( DONE ) // using saveOrUpdate
-		- delete 
+		- delete 		  ( DONE )
 		- show book table
 			- create T-shirt CRUD 	  ( same as BOOK )  
 			- create custom-mug CRUD  ( same as BOOK ) 
@@ -33,7 +33,7 @@ TODO:
 	- NEWS:
 		- use jackson mapper to convert json to pojo. ( sector 57 , lecture 448 ) 
 		  means 'createNewsFromJSONObject()' was useless in NewsServiceImpl. 
-		- dependency - in lecture 450
+		- ( DONE ) dependency - in lecture 450
 		  
 	- Shop: 
 		- add array of reviews in each book.
@@ -52,6 +52,7 @@ TODO:
 	- do i use ShowMatch or Match models ? 
 	- put entities in com.example.entitry and other leave in model.
 	- same with Dao
+	- write js in thymeleaf at 'onClick' delete in crud. section 33 / 309; chad uses jsp, so at thymeleaf its different. need to find out how.
 	- use @postConstruct for LoadData() - at the construction of the class. sector 60 - lecture 468
 	- fix get params. i can use input, method = "get". example can be found in helloShop.html and @RequestParam in argument
 	- use @InitBinder - pre process request before coming to controller ( Advanced ). Spring course - Session 15, Lec 152

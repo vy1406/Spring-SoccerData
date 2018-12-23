@@ -10,4 +10,6 @@ public interface BookDao {
 	public void saveBook(Book argBook);
 
 	public Book getBook(int bookID);
+
+	public void deleteBook(int bookID);
 }

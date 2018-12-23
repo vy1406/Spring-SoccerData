@@ -36,4 +36,9 @@ public class ShopServiceImpl implements ShopService {
 		
 	}
 
+	@Override
+	public void deleteBook(int bookID) {
+		 bookDao.deleteBook(bookID);
+	}
+
 }

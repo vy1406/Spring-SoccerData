@@ -67,6 +67,14 @@ public class ShopController {
 		return "showFormForAdd";
 	}
 	
+	@GetMapping("/delete")
+	public String delete(@RequestParam("bookID") int bookID)
+	{
+		shopService.deleteBook(bookID);
+		System.out.println("the book with book id:" + bookID + " has been deleted");
+		return "redirect:/shop/books";
+	}
+	
 	
 	// ========================== OLD CODE ====================================================
 	
