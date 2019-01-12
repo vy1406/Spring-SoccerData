@@ -1,10 +1,13 @@
 package com.example.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 // -------------------------------
@@ -12,7 +15,7 @@ import javax.persistence.Table;
 // -------------------------------
 
 @Entity
-@Table(name = "book")
+@Table(name="book")
 public class Book {
 
 	@Id
@@ -23,8 +26,10 @@ public class Book {
 	@Column(name ="bookTitle")
 	private String bookTitle;
 	
-	@Column(name ="author")
-	private String author;
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, 
+						 CascadeType.DETACH, CascadeType.REMOVE} )
+	@JoinColumn(name="author_id")
+	private AuthorDetail authorDetail;
 	
 	@Column(name ="ISBN")
 	private String ISBN;
@@ -38,7 +43,7 @@ public class Book {
 	public Book() {
 	}
 
-	public int getId() {
+	public float getId() {
 		return id;
 	}
 
@@ -54,12 +59,12 @@ public class Book {
 		this.bookTitle = bookTitle;
 	}
 
-	public String getAuthor() {
-		return author;
+	public AuthorDetail getAuthorDetail() {
+		return authorDetail;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setAuthorDetail(AuthorDetail authorDetail) {
+		this.authorDetail = authorDetail;
 	}
 
 	public String getISBN() {
@@ -88,14 +93,13 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", bookTitle=" + bookTitle + ", author=" + author + ", ISBN=" + ISBN + ", quantity="
+		return "Book [id=" + id + ", bookTitle=" + bookTitle + ", ISBN=" + ISBN + ", quantity="
 				+ quantity + ", price=" + price + "]";
 	}
 
-	public Book(String bookTitle, String author, String iSBN, int quantity, double d) {
+	public Book(String bookTitle,String iSBN, int quantity, double d) {
 		this.bookTitle = bookTitle;
-		this.author = author;
-		ISBN = iSBN;
+		this.ISBN = iSBN;
 		this.quantity = quantity;
 		this.price = d;
 	}

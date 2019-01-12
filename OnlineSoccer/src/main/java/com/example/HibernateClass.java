@@ -132,7 +132,9 @@ public class HibernateClass {
 			factory.close();
 		}
 	}
-	
+	// ---------------------------
+	// manually filling the table
+	// ---------------------------
 	public static void fillTable() {
 		System.out.println("in fillTable");
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Book.class)
@@ -142,9 +144,9 @@ public class HibernateClass {
 
 		try {
 			System.out.println("Creating new book object...");
-			Book b1= new Book("I Am Zlatan Ibrahimovic", "Zlatan Ibrahimovic", "9780241966839", 50, 8.87);
-			Book b2= new Book("I Think Therefore I Play", "Andrea Pirlo	", "1909430161", 80, 14.99);
-			Book b3= new Book("Commitment: My Autobiography", "Didier Drogba", "1473647525", 40, 10.19);
+			Book b1= new Book("I Am Zlatan Ibrahimovic", "9780241966839", 50, 8.87);
+			Book b2= new Book("I Think Therefore I Play", "1909430161", 80, 14.99);
+			Book b3= new Book("Commitment: My Autobiography", "1473647525", 40, 10.19);
 			session.beginTransaction();
 
 			System.out.println("saving the books");
@@ -159,7 +161,7 @@ public class HibernateClass {
 			factory.close();
 		}
 	}
-	
+	// do i need it ? 
 	public static void doMain() {
 		System.out.println("in doMain");
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)

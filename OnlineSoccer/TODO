@@ -27,7 +27,7 @@ PLAN:
 			- create shopping cart.
 	- Game 
 		- create dynamic table
-		- use multi-threading
+		  use multi-threading
 
 TODO: 
 	- NEWS:
