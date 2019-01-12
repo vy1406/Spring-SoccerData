@@ -12,12 +12,15 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.entity.AuthorDetail;
 import com.example.entity.Book;
 
 @Repository
 public class BookDaoImpl implements BookDao {
 
-	SessionFactory sessionFactory = new Configuration().configure("shop.cfg.xml").addAnnotatedClass(Book.class)
+	SessionFactory sessionFactory = new Configuration().configure("shop.cfg.xml")
+			.addAnnotatedClass(Book.class)
+			.addAnnotatedClass(AuthorDetail.class)
 			.buildSessionFactory();
 
 	@Override

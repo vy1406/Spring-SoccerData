@@ -51,6 +51,7 @@ public class HomeController   {
 	@RequestMapping("/index")
 	public String index(Model model) {
 	
+		
 		ArrayList<News> news;
 		List<League> list = leagueDao.getAll();
 		servletContext.setAttribute("leagues", list); // TODO - what am i doing here ? fix it... 
@@ -63,7 +64,6 @@ public class HomeController   {
 			news = newsServiceImpl.getNewsByTopic("Chelsea");
 			model.addAttribute("news", news);
 		} catch (UnirestException e) {
-			
 			e.printStackTrace();
 		}
 		

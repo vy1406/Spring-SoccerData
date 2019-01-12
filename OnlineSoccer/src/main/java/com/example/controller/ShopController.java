@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.Book;
 import com.example.service.ShopService;
+import com.example.serviceImpl.ShopServiceImpl;
 
 @Controller
 @RequestMapping("/shop")
@@ -52,8 +53,6 @@ public class ShopController {
 	public String saveBook(@ModelAttribute("argBook") Book argBook) {
 		
 		shopService.saveBook(argBook);
-		
-		
 		return "redirect:/shop/books";
 	}
 	

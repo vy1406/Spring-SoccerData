@@ -5,11 +5,13 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.dao.BookDao;
 import com.example.entity.Book;
 import com.example.service.ShopService;
 
+@Service
 public class ShopServiceImpl implements ShopService {
 
 	@Autowired
@@ -18,7 +20,6 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	@Transactional
 	public List<Book> getBooks() {
-		
 		return bookDao.getBooks();
 	}
 

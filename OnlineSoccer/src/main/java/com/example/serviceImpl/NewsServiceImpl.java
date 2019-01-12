@@ -31,11 +31,10 @@ public class NewsServiceImpl implements NewsService {
 		String url = "https://contextualwebsearch-news-search-v1.p.mashape.com/api/Search/NewsSearchAPI?autocorrect=true&count=5&q=Football+";
 		url += topic;
 		HttpResponse<JsonNode> response = Unirest.get(url)
-				.header("X-Mashape-Key", "sdpA5mNyFHmshPaz2GricZFb2fMep1MfVlxjsn9z1gehpzfRJ3")
+				.header("X-Mashape-Key", "M4VX4ZfeQimsh7wXLc7tqbKRXnnNp1dxoamjsneu2x8MXOQ23E")
 				.header("Accept", "application/json").asJson();
-
+		
 		try {
-
 			return parseToNews(response.getBody().getObject());
 
 		} catch (JSONException e) {
@@ -53,11 +52,12 @@ public class NewsServiceImpl implements NewsService {
 		News current;
 		JSONArray keys = json.names();
 		JSONArray values = (JSONArray) json.opt("value");
-
-		for (int i = 0; i < values.length(); i++) {
-			JSONObject curJsonObject = values.getJSONObject(i);
-			current = createNewsFromJSONObject(curJsonObject);
+		System.out.println("the problem is here...");
+		for (int i = 0; i < values.length(); i++) {		
+			JSONObject curJsonObject = values.getJSONObject(i);		
+			current = createNewsFromJSONObject(curJsonObject);	
 			news.add(current);
+			
 		}
 
 		return news;

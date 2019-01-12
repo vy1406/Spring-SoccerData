@@ -1,3 +1,9 @@
+--------------------------
+now
+--------------------------
+cannot run the app cuz the newsServiceImpl makes some problemes. it seems that this service is bugged or something.
+need to check it in lab env. basically it doesnt go into the loop at newsServiceImpl.line:57
+yes, officialy the service of the news is dead. means i need to find some other service that does it.
 TODO : 
 add pictures to navbar
 use jUnit ( unit - testing ) 
@@ -8,6 +14,7 @@ to make Game service  ?
 tooltip / popup  
 match picture ? - https://www.w3schools.com/howto/howto_css_cutout_text.asp
 use random - to show random match. 
+
 
 PLAN: 
 	- Shop

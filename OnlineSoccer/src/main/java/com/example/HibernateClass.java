@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.example.entity.AuthorDetail;
 import com.example.entity.Book;
 import com.example.model.Student;
 
@@ -38,7 +39,7 @@ public class HibernateClass {
 
 	public static void queryObject() {
 		System.out.println("in queryObject");
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Book.class)
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Book.class).addAnnotatedClass(AuthorDetail.class)
 				.buildSessionFactory();
 
 		Session session = factory.getCurrentSession();
@@ -61,7 +62,7 @@ public class HibernateClass {
 
 	public static void updateObject() {
 		System.out.println("in updateObject");
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class).addAnnotatedClass(AuthorDetail.class)
 				.buildSessionFactory();
 
 		Session session = factory.getCurrentSession();
@@ -137,7 +138,7 @@ public class HibernateClass {
 	// ---------------------------
 	public static void fillTable() {
 		System.out.println("in fillTable");
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Book.class)
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Book.class).addAnnotatedClass(AuthorDetail.class)
 				.buildSessionFactory();
 
 		Session session = factory.getCurrentSession();

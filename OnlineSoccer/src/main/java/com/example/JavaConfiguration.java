@@ -54,6 +54,7 @@ public class JavaConfiguration {
 	public ShopService shopService() {
 		return new ShopServiceImpl();
 	}
+	
 	@Bean
 	public NewsServiceImpl newsServiceImpl() {
 		return new NewsServiceImpl();

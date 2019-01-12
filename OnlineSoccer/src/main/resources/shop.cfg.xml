@@ -13,7 +13,7 @@
 		<!-- <property name="connection.password">hbstudent</property> -->
 
 		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/shop?useSSL=false&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/shop?useSSL=false&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true</property>
 		<property name="connection.username">shopuser</property>
 		<property name="connection.password">shopuser</property>
 		
